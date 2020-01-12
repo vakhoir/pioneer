@@ -309,6 +309,8 @@ static bool import_from_cache(lua_State *L, const ImportInfo &importInfo)
 	assert(lua_istable(L, -1));
 	DEBUG_INDENTED_PRINTF("import [%s]: trying to load from cache...", importInfo.importName.c_str());
 
+	if(importInfo.importName == "pigui/libs/debug") return false;
+
 	bool isImported = false;
 	std::string realName = importInfo.importName;
 
