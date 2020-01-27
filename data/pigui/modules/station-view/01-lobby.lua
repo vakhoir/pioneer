@@ -16,6 +16,7 @@ local InfoFace = import 'ui/PiguiFace'
 local PiImage = import 'ui/PiImage'
 local drawTable = import 'pigui/libs/table.lua'
 local ModalWindow = import 'pigui/libs/modal-win.lua'
+local TextRescale = import 'pigui/libs/text-rescale.lua'
 
 local pionillium = ui.fonts.pionillium
 local orbiteer = ui.fonts.orbiteer
@@ -209,11 +210,13 @@ local function lobbyMenu(startPos)
 			gaugeWidth, widgetSizes.buttonSizeBase.y, ui.fonts.pionillium.medlarge)
 
 	ui.columns(1, '', false)
-	ui.withFont(orbiteer.xlarge.name, orbiteer.xlarge.size, function()
+	TextRescale.withFont(orbiteer.xlarge.name, orbiteer.xlarge.size, function()
 		local buttonPos = ui.getCursorScreenPos()
 		buttonPos.x = gaugePos.x + gaugeWidth - widgetSizes.buttonLaunchSize.x
 		ui.setCursorScreenPos(buttonPos)
-		if ui.coloredSelectedButton(l.REQUEST_LAUNCH, widgetSizes.buttonLaunchSize, false, colors.buttonBlue, nil, true) then requestLaunch() end
+		TextRescale.fitToSpace(l.REQUEST_LAUNCH, widgetSizes.buttonLaunchSize, function ()
+			if ui.coloredSelectedButton(l.REQUEST_LAUNCH, widgetSizes.buttonLaunchSize, false, colors.buttonBlue, nil, true) then requestLaunch() end
+		end)
 	end)
 end
 
